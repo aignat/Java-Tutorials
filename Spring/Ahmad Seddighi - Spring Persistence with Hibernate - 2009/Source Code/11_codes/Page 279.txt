@@ -1,0 +1,22 @@
+//Listing 11-4
+package com.packtpub.springhibernate.ch11;
+
+import org.springframework.aop.framework.ProxyFactory;
+
+public class StudentFactory {
+    public static Student getStudent() {
+        Student std = new Student();
+//create and configure the advice object
+        RecordingConcern advice = new RecordingConcern();
+        SetterInfoPrinter printer = new SetterInfoConsolePrinter();
+        advice.setPrinter(printer);
+//create proxy
+        ProxyFactory pf = new ProxyFactory();
+//introduce target & advice to proxy
+        pf.addAdvice(advice);
+        pf.setTarget(std);
+//use proxy object instead of actual target object
+        Student proxy = (Student) pf.getProxy();
+        return proxy;
+    }
+}

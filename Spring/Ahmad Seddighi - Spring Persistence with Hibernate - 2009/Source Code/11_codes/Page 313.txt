@@ -1,0 +1,11 @@
+package com.packtpub.springhibernate.ch11;
+
+import org.aspectj.lang.ProceedingJoinPoint;
+
+public class MessageWriter {
+	public void writeMessage(ProceedingJoinPoint call) throws Throwable {
+		System.out.println("Before Target");
+		call.proceed();
+		System.out.println("After Target");
+	}
+}

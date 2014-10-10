@@ -1,0 +1,4 @@
+package com.packtpub.springhibernate.ch10;
+public interface Notifier {
+	public void notify(String text) throws NotifyException;
+}

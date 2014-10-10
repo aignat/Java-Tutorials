@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+        "http://www.springframework.org/dtd/spring-beans.dtd">
+<!-- Listing 3-17-->
+<beans>
+    <bean id="student" class="com.packtpub.springhibernate.ch03.Student">
+        <property name="printer">
+            <bean class="com.packtpub.springhibernate.ch03.SetterInfoConsolePrinter"/>
+        </property>
+    </bean>
+</beans>

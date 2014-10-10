@@ -1,0 +1,134 @@
+package com.packtpub.springhibernate.ch13;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.HibernateException;
+import org.hibernate.Query;
+import java.util.Collection;
+
+public class HibernateStudentDao implements StudentDao {
+
+	SessionFactory sessionFactory;
+
+	public Student getStudent(long id) {
+		Student student = null;
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			student = (Student) session.get(Student.class, new Long(id));
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		return student;
+	}
+	
+	public Collection getAllStudents(){
+		Collection allStudents = null;
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+				"from Student std order by std.lastName, std.firstName");
+			allStudents = query.list();
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e; 
+		} finally {
+			session.close();
+		}
+		return allStudents;
+	}
+	
+	public Collection getGraduatedStudents(){
+		Collection graduatedStudents = null;
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+				"from Student std where std.status=1");
+			graduatedStudents = query.list();
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		return graduatedStudents;
+	}
+	
+	public Collection findStudents(String lastName) {
+		Collection students = null;
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			Query query = session.createQuery(
+				"from Student std where std.lastName like ?");
+			query.setString(1, lastName + "%");
+			students = query.list();
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+		return students;
+	}
+	
+	public void saveStudent(Student std) {
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.saveOrUpdate(std);
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+			tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void removeStudent(Student std) {
+		Session session = HibernateHelper.getSession();
+		Transaction tx = null;
+		try {
+			tx = session.beginTransaction();
+			session.delete(std);
+			tx.commit();
+			tx = null;
+		} catch (HibernateException e) {
+			if (tx != null)
+				tx.rollback();
+			throw e;
+		} finally {
+			session.close();
+		}
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+}

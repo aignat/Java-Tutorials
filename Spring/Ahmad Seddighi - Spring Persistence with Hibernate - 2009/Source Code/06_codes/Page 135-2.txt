@@ -1,0 +1,12 @@
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Student" table="STUDENT">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<many-to-one name="address"
+					column="ADDRESS_ID"
+					cascade="all"/>
+					
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

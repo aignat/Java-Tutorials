@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	
+	<!--advice declaration -->
+	<bean id="advice" class="com.packtpub.springhibernate.ch11.LogAfterAdvice">
+	</bean>
+	
+	<!-- pointcut declaration -->
+	<bean id="pointcut"
+		class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+		<property name="pattern">
+			<value>.get*</value>
+		</property>
+	</bean>
+	
+	<!--advisor declaration, combined of the advice and pointcut-->
+	<bean name ="advisor"
+		class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="pointcut">
+			<ref local="pointcut" />
+		</property>
+		<property name="advice">
+			<ref local="advice" />
+		</property>
+	</bean>
+	
+	<bean id="notifier"
+		class="com.packtpub.springhibernate.ch11.EmailNotifier">
+	</bean>
+	
+	<bean id="notificationService"
+		class="com.packtpub.springhibernate.ch11.NotificationService">
+		<property name="notifier">
+			<ref local="notifier"/>
+		</property>
+		<property name="retryOnFail">
+			<value>true</value>
+		</property>
+	</bean>
+	
+	<!-- target object declaration -->
+	<bean id="studentServiceTarget"
+		class="com.packtpub.springhibernate.ch11.StudentService">
+		<property name="studentDao">
+			<bean class="com.packtpub.springhibernate.ch11.StudentDaoImpl"/>
+		</property>
+		<property name="notificationService">
+			<ref local="notificationService" />
+		</property>
+	</bean>
+	
+	<!-- proxy object configuration -->
+	<bean id="studentService"
+		class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="proxyInterfaces">
+			<value>com.packtpub.springhibernate.ch11.StudentServiceInf</value>
+		</property>
+		<property name="target">
+			<ref local="studentServiceTarget"/>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>advisor</value>
+			</list>
+		</property>
+	</bean>
+</beans>

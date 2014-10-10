@@ -1,0 +1,16 @@
+//Listing 3-19
+package com.packtpub.springhibernate.ch03;
+
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
+
+public class Main {
+    public static void main(String[] args) {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(
+                "com/packtpub/springhibernate/ch03/spring-context.xml");
+        Student student = (Student) ctx.getBean("student");
+        student.setId(41);
+        student.setFirstName("John");
+        student.setLastName("White");
+    }
+}

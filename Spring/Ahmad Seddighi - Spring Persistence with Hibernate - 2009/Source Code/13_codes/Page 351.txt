@@ -1,0 +1,32 @@
+package com.packtpub.springhibernate.ch13;
+
+import org.springframework.orm.hibernate3.support.HibernateDaoSupport;
+import java.util.Collection;
+
+public class HibernateStudentDao extends HibernateDaoSupport implementsStudentDao {
+	public Student getStudent(long id) {
+		return (Student) getHibernateTemplate().get(Student.class, new Long(id));
+	}
+	
+	public Collection getAllStudents(){
+		return getHibernateTemplate().
+			find("from Student std order by std.lastName, std.firstName");
+	}
+	
+	public Collection getGraduatedStudents(){
+		return getHibernateTemplate().find("from Student std where std.status=1");
+	}
+	
+	public Collection findStudents(String lastName) {
+		return getHibernateTemplate().
+			find("from Student std where std.lastName like ?", lastName + "%");
+	}
+	
+	public void saveStudent(Student std) {
+		getHibernateTemplate().saveOrUpdate(std);
+	}
+	
+	public void removeStudent(Student std) {
+		getHibernateTemplate().delete(std);
+	}
+}

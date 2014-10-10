@@ -1,0 +1,5 @@
+public class Student {
+	@ManyToOne
+	@JoinColumn(name = "SCHOOL_ID")
+	private School school;
+}

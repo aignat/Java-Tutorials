@@ -1,0 +1,18 @@
+//Listing 8-4
+package com.packtpub.springhibernate.ch08;
+
+public class Course {
+    private int id;
+    private String name;
+    private int unit;
+
+    //default constructor
+    public Course() {
+    }
+
+    public Course(String name, int unit) {
+        this.name = name;
+        this.unit = unit;
+    }
+//setter and getter methods
+}

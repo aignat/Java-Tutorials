@@ -1,0 +1,9 @@
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Student" table="STUDENT">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="firstName" column="FIRST_NAME" type="string"/>
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="complexBean" class="com.packtpub.springhibernate.ch10.ComplexBean">
+		<property name="adminIDList">
+			<list>
+				<value>221</value>
+				<value>323</value>
+				<value>212</value>
+				<value>412</value>
+				<value>511</value>
+			</list>
+		</property>
+		<property name="adminNameSet">
+			<set>
+				<value>John</value>
+				<value>David</value>
+				<value>Andrew</value>
+				<value>David</value>
+				<value>Bobby</value>
+			</set>
+		</property>
+		<property name="adminEmailMap">
+			<map>
+				<entry key="221">
+					<value>John@domain.com</value>
+				</entry>
+				<entry key="323">
+					<value>David@domain.com</value>
+				</entry>
+				<entry key="212">
+					<value>Andrew@domain.com</value>
+				</entry>
+				<entry key="412">
+					<value>David@domain.com</value>
+				</entry>
+				<entry key="511">
+					<value>Bobby@domain.com</value>
+				</entry>
+			</map>
+		</property>
+		<property name="adminAgesProps">
+			<props>
+				<prop key="John">32</prop>
+				<prop key="David">41</prop>
+				<prop key="Andrew">28</prop>
+				<prop key="David">34</prop>
+				<prop key="Bobby">45</prop>
+			</props>
+		</property>
+	</bean>
+</beans>

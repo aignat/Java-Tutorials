@@ -1,0 +1,26 @@
+package com.packtpub.springhibernate.ch11;
+
+import org.springframework.aop.ThrowsAdvice;
+import java.io.IOException;
+import org.hibernate.HibernateException;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+public class CustomExceptionsThrowsAdvice implements ThrowsAdvice {
+	private static Logger logger =
+			Logger.getLogger(CustomExceptionsThrowsAdvice.class.getName());
+
+	NotificationServiceInf notificationService;
+
+	public void afterThrowing(HibernateException ex) throws Throwable {
+		notificationService.notify(ex.getMessage());
+	}
+	
+	public void afterThrowing(IOException ex) throws Throwable {
+		logger.log(Level.INFO, "An IOException occured");
+	}
+	
+	public void setNotificationService(NotificationServiceInf notificationService){
+		this.notificationService = notificationService;
+	}
+}

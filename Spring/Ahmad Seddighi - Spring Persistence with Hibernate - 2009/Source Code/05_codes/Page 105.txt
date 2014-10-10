@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Listing 5-3-->
+<hibernate-mapping>
+    <class name="Person" table="PERSON"
+           discriminator-value="PE">
+        <id name="id" column="ID" type="long">
+            <generator class="native"/>
+        </id>
+        <discriminator column="PERSON_TYPE" type="string"/>
+        <property name="firstName" column="FIRST_NAME" type="string"/>
+        <property name="lastName" column="LAST_NAME" type="string"/>
+        <property name="ssn" column="SSN" type="string"/>
+        <property name="birthdate" column="BIRTHDATE" type="date"/>
+        <subclass name="Student" discriminator-value="ST">
+            <property name="stdNo" column="STD_NO" type="string"/>
+            <property name="entranceDate" column="ENTRANCE_DATE" type="date"/>
+        </subclass>
+        <subclass name="Teacher" discriminator-value="TE">
+            <property name="degree" column="DEGREE" type="int"/>
+            <property name="major" column="MAJOR" type="int"/>
+        </subclass>
+    </class>
+</hibernate-mapping>

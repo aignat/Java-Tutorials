@@ -1,0 +1,10 @@
+@Component
+public class NotificationServiceImpl implements NotificationService {
+
+	private Notifier notifier;
+
+	@Autowired
+	public void setNotifier(Notifier notifier) {
+		this.notifier = notifier;
+	}
+}

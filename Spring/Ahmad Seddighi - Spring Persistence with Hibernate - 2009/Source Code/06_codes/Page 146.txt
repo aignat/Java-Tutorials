@@ -1,0 +1,44 @@
+public class Student {
+	private int id;
+	private String firstName;
+	private List courses = new ArrayList();
+	//other fields and setter/getter methods
+}
+
+public class Course {
+	privae int id;
+	private String name;
+	//other fields and setter/getter methods
+}
+
+<!-- Student.hbm.xml -->
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Student" table="STUDENT">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="firstName" column="FIRST_NAME" type="string"/>
+		<bag name="courses"
+			cascade="all"
+			table="STUDENT_COURSE"
+			lazy="false">
+			<key column="STUDENT_ID"/>
+			<many-to-many class="com.packtpub.springhibernate.ch06.Course"
+							column="COURSE_ID"/>
+		</bag>
+		
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>
+
+<!-- Course.hbm.xml -->
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Course" table="COURSE">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="name" column="NAME" type="string"/>
+
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

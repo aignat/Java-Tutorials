@@ -1,0 +1,19 @@
+package com.packtpub.springhibernate.ch10;
+
+public class NotificationServiceImpl implements NotificationService {
+	Notifier notifier = new EmailNotifier();
+	boolean retryOnFail = true;
+
+	public void notify(String message) throws ServiceException {
+		try {
+			notifier.notify(message);
+		} catch(NotifyException e) {
+			if(retryOnFail) {
+				//notifying again
+				notify(message);
+			} else {
+				throw new ServiceException(e);
+			}
+		}
+	}
+}

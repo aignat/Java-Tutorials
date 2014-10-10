@@ -1,0 +1,5 @@
+<map name="papers" table="STUDENT_PAPER" order-by="PAPER_TITLE asc">
+	<key column="STUDENT_ID"/>
+	<map-key column="PAPER_TITLE" type="string"/>
+	<element type="string" column="PAPER_PATH" not-null="true"/>
+</map>

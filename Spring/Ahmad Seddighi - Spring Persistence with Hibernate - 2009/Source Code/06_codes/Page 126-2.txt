@@ -1,0 +1,12 @@
+@org.hibernate.annotations.CollectionOfElements(
+	targetElement = java.lang.String.class
+)
+@JoinTable(
+	name = "STUDENT_PAPER",
+	joinColumns = @JoinColumn(name = "STUDENT_ID")
+)
+@Column(name = "PAPER_PATH")
+@org.hibernate.annotations.Sort(
+	type = org.hibernate.annotations.SortType.NATURAL
+)
+private Set papers = new TreeSet();

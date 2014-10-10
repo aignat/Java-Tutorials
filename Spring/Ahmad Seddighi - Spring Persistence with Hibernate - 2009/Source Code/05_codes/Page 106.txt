@@ -1,0 +1,10 @@
+@Entity
+@Inheritance(strategy = SINGLE_TABLE)
+@DiscriminatorColumn(
+name="PERSON_TYPE",
+discriminatorType=STRING
+)
+@DiscriminatorValue("PE")
+public class Person implements Serializable {
+...
+}

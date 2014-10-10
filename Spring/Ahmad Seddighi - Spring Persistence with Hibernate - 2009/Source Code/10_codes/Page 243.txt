@@ -1,0 +1,30 @@
+package com.packtpub.springhibernate.ch10;
+
+public class NotificationServiceImpl implements NotificationService {
+
+	Notifier notifier ;
+	String prefixMessage;
+	boolean retryOnFail;
+
+	public NotificationServiceImpl(Notifier notifier,
+									String prefixMessage,
+									boolean retryOnFail) {
+		this.notifier= notifier;
+		this.prefixMessage = prefixMessage;
+		this.retryOnFail = retryOnFail;
+	}
+	
+	public void notify(String message) throws ServiceException {
+		String message2Send = prefixMessage +" "+ message;
+		try {
+			notifier.notify(message2Send);
+		} catch(NotifyException e) {
+			if(retryOnFail) {
+				//notifying again
+				notify(message2Send);
+			} else {
+				throw new ServiceException(e);
+			}
+		}
+	}
+}

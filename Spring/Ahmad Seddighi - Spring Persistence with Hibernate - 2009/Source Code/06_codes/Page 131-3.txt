@@ -1,0 +1,11 @@
+@Entity
+public class Student {
+
+	@Id
+	private int id;
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private Phone phone;
+	
+	//other fields and getter/setter methods
+}

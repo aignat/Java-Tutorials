@@ -1,0 +1,122 @@
+//Listing 7-6
+package com.packtpub.springhibernate.ch07;
+
+import org.hibernate.usertype.CompositeUserType;
+import org.hibernate.type.Type;
+import org.hibernate.HibernateException;
+import org.hibernate.Hibernate;
+import org.hibernate.engine.SessionImplementor;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.PreparedStatement;
+import java.io.Serializable;
+import java.util.Date;
+
+public class CompositeHistoryType implements CompositeUserType {
+    private String[] propertyNames = {"initialCapacity", "establishmentDate"};
+    private Type[] propertyTypes = {Hibernate.LONG, Hibernate.DATE};
+
+    public String[] getPropertyNames() {
+        return propertyNames;
+    }
+
+    public Type[] getPropertyTypes() {
+        return propertyTypes;
+    }
+
+    public Object getPropertyValue(Object component, int property) {
+        History history = (History) component;
+        switch (property) {
+            case 0:
+                return new Long(history.getInitialCapacity());
+            case 1:
+                return history.getEstablishmentDate();
+        }
+        throw new IllegalArgumentException(property +
+                " is an invalid property index for class type " +
+                component.getClass().getName());
+    }
+
+    public void setPropertyValue(Object component, int property,
+                                 Object value) {
+        History history = (History) component;
+        switch (property) {
+            case 0:
+                history.setInitialCapacity(((Long) value).longValue());
+            case 1:
+                history.setEstablishmentDate((Date) value);
+            default:
+                throw new IllegalArgumentException(property +
+                        " is an invalid property index for class type " +
+                        component.getClass().getName());
+        }
+    }
+
+    public Class returnedClass() {
+        return History.class;
+    }
+
+    public boolean equals(Object o1, Object o2) throws HibernateException {
+        if (o1 == o2) return true;
+        if (o1 == null || o2 == null) return false;
+        return o1.equals(o2);
+    }
+
+    public int hashCode(Object o) throws HibernateException {
+        return o.hashCode();
+    }
+
+    public Object assemble(Serializable cached,
+                           SessionImplementor session, Object owner)
+            throws HibernateException {
+        return deepCopy(cached);
+    }
+
+    public Object replace(Object original, Object target,
+                          SessionImplementor sessionImplementor, Object owner)
+            throws HibernateException {
+        return original;
+    }
+
+    public Serializable disassemble(Object value,
+                                    SessionImplementor session)
+            throws HibernateException {
+        return (Serializable) deepCopy(value);
+    }
+
+    public Object nullSafeGet(ResultSet rs, String[] names,
+                              SessionImplementor session, Object o)
+            throws HibernateException, SQLException {
+        long initialCapacity = rs.getLong(names[0]);
+        java.util.Date establishmentDate = rs.getDate(names[1]);
+        return new History(initialCapacity, establishmentDate);
+    }
+
+    public void nullSafeSet(PreparedStatement ps,
+                            Object value, int index, SessionImplementor session)
+            throws HibernateException, SQLException {
+        if (value == null) {
+            ps.setNull(index, Hibernate.LONG.sqlType());
+            ps.setNull(index + 1, Hibernate.DATE.sqlType());
+        } else {
+            History history = (History) value;
+            long l = history.getEstablishmentDate().getTime();
+            ps.setLong(index, history.getInitialCapacity());
+            ps.setDate(index + 1, new java.sql.Date(l));
+        }
+    }
+
+    public Object deepCopy(Object value) throws HibernateException {
+        if (value == null) return null;
+        History origHistory = (History) value;
+        History newHistory = new History();
+        newHistory.setInitialCapacity(origHistory.getInitialCapacity());
+        newHistory.setEstablishmentDate(origHistory.getEstablishmentDate());
+        return newHistory;
+    }
+
+    public boolean isMutable() {
+        return true;
+    }
+}

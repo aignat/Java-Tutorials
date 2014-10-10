@@ -1,0 +1,18 @@
+//Listing 11-9
+package com.packtpub.springhibernate.ch11;
+
+import org.hibernate.HibernateException;
+import org.springframework.aop.ThrowsAdvice;
+
+public class NotificationThrowsAdvice implements ThrowsAdvice {
+    NotificationServiceInf notificationService;//initialized via IoC
+
+    public void afterThrowing(HibernateException ex) throws Throwable {
+        notificationService.notify(ex.getMessage());
+        throw new ServiceException(ex);
+    }
+
+    public void setNotificationService(NotificationServiceInf notificationService) {
+        this.notificationService = notificationService;
+    }
+}

@@ -1,0 +1,22 @@
+public class Student {
+	private int id;
+	private String firstName;
+	private Map papers = new HashMap();
+	//other fields and setter/gettter methods
+}
+
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Student" table="STUDENT">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="firstName" column="FIRST_NAME" type="string"/>
+		<map name="papers" table="STUDENT_PAPER">
+			<key column="STUDENT_ID"/>
+			<map-key column="PAPER_TITLE" type="string"/>
+			<element type="string" column="PAPER_PATH"/>
+		</map>
+
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

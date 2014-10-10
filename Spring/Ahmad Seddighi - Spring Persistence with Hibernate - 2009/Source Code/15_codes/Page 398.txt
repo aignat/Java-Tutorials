@@ -1,0 +1,90 @@
+package com.packtpub.springhibernate.ch15;
+
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.ArrayList;
+import org.hibernate.HibernateException;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.ApplicationContext;
+import junit.framework.TestCase;
+
+public class TestCaseStudentService1 extends TestCase {
+
+	ApplicationContext ctx;
+	StudentService ss;
+
+	public void setUp() throws Exception {
+		ctx = new ClassPathXmlApplicationContext("com/packtpub/springhibernate/ch15/applicationContext.xml");
+		ss = (StudentService) ctx.getBean("studentService");
+	}
+	
+	public void testStudentDaoUsageWithMock() throws Exception {
+		ss.setStudentDao(new mockHibernateStudentDao());
+		//verify if StudentDao instance is called in
+		//the getAllStudents() method
+		Collection allStudents = ss.getAllStudents();
+		assertNotNull(allStudents);
+		assertEquals(allStudents.size(), 1);
+		assertEquals(allStudents.toArray()[0],
+		createADummyStudent());
+		//verify if StudentDao instance is called in
+		// the saveStudent() method
+		Student student = createADummyStudent();
+		Student retStudent = ss.saveStudent(student);
+		assertSame(student, retStudent);
+		//verify if StudentDao instance is called in
+		// the removeStudent() method
+		retStudent = ss.removeStudent(student);
+		assertSame(student, retStudent);
+		//verify if StudentDao instance is called in
+		// the updateStudent() method
+		retStudent = ss.updateStudent(student);
+		assertSame(student, retStudent);
+	}
+	
+	private Student createADummyStudent() {
+		Student student = new Student();
+		Calendar birthday = Calendar.getInstance();
+		birthday.set(Calendar.YEAR, 1982);
+		birthday.set(Calendar.MONTH, 3);
+		birthday.set(Calendar.DAY_OF_MONTH, 21);
+		student.setBirthdate(birthday.getTime());
+		Calendar entranceTime = Calendar.getInstance();
+		birthday.set(Calendar.YEAR, 2005);
+		birthday.set(Calendar.MONTH, 7);
+		birthday.set(Calendar.DAY_OF_MONTH, 1);
+		student.setEntranceDate(entranceTime.getTime());
+		student.setFirstName("John");
+		student.setLastName("White");
+		student.setSsn("121-21212-211");
+		student.setStdNo("832423472");
+		return student;
+	}
+	
+	class mockHibernateStudentDao implements StudentDao {
+		public Collection getAllStudents() throws HibernateException {
+			Student std = createADummyStudent();
+			ArrayList list = new ArrayList();
+			list.add(std);
+			return list;
+		}
+	
+		public Student getStudent(Long stdId) throws HibernateException {
+			Student std = createADummyStudent();
+			std.setId(stdId);
+			return std;
+		}
+		
+		public Student saveStudent(Student std) throws HibernateException {
+			return std;
+		}
+		
+		public Student removeStudent(Student std) throws HibernateException {
+			return std;
+		}
+		
+		public Student updateStudent(Student std) throws HibernateException {
+			return std;
+		}
+	}
+}

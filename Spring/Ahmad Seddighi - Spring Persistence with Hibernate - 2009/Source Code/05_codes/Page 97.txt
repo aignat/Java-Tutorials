@@ -1,0 +1,82 @@
+package com.packtpub.springhibernate.ch05;
+import java.util.Date;
+import java.util.Calendar;
+import java.io.Serializable;
+import javax.persistence.*;
+@Entity
+@Table(name="STUDENT")
+public class Student implements Serializable{
+private int id;
+private String firstName;
+private String lastName;
+private String ssn;
+private Date birthday;
+private String stdNo;
+private Date entranceDate ;
+//constructors
+@Id
+@Column(name = "ID")
+public int getId() {
+return id;
+}
+public void setId(int id) {
+this.id = id;
+}
+@Basic
+@Column(name="FIRST_NAME")
+public String getFirstName() {
+return firstName;
+}
+public void setFirstName(String firstName) {
+this.firstName = firstName;
+}
+@Basic
+@Column(name="LAST_NAME")
+public String getLastName() {
+return lastName;
+}
+public void setLastName(String lastName) {
+this.lastName = lastName;
+}
+@Basic
+@Column(name="SSN")
+public String getSsn() {
+return ssn;
+}
+public void setSsn(String ssn) {
+this.ssn = ssn;
+}
+@Basic
+@Column(name="BIRTHDAY")
+public Date getBirthday() {
+return birthdate;
+}
+public void setBirthdate(Date birthday) {
+this.birthdate = birthdate;
+}
+@Basic
+@Column(name="STD_NO")
+public String getStdNo() {
+return stdNo;
+}
+public void setStdNo(String stdNo) {
+this.stdNo = stdNo;
+}
+@Basic
+@Column(name="ENTRANCE_DATE")
+public Date getEntranceDate() {
+return entranceDate;
+}
+public void setEntranceDate(Date entranceDate) {
+this.entranceDate = entranceDate;
+}
+public int getAge(){
+Calendar c = Calendar.getInstance();
+c.setTime(new java.util.Date(getBirthdate().getTime()));
+int birthYear = c.get(Calendar.YEAR);
+c.setTime(new java.util.Date());
+int now = c.get(Calendar.YEAR);
+return now-birthYear;
+}
+//hashCode() and equals() methods
+}

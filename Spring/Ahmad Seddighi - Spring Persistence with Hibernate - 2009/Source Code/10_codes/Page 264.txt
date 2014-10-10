@@ -1,0 +1,76 @@
+package com.packtpub.springhibernate.ch10;
+
+import org.springframework.beans.factory.FactoryBean;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Properties;
+
+public class ConnectionFactoryBean implements FactoryBean {
+	String url;
+	String driver;
+	String username;
+	String password;
+	Properties props;
+	
+	public Object getObject() throws Exception {
+		if(props == null) {
+			props = new Properties();
+		}
+		if(username != null) {
+			props.setProperty("username", username);
+		}
+		if(password != null) {
+			props.setProperty("password", password);
+		}
+		validateUrl();
+		validateDriver();
+		Class.forName(driver);
+		return DriverManager.getConnection(url, props);
+	}
+
+	public Class getObjectType() {
+		return Connection.class;
+	}
+	
+	public boolean isSingleton() {
+		return false;
+	}
+	
+	private void validateUrl() throws Exception {
+		if ((url == null) || (url.equals(""))) {
+			url= props.getProperty("url");
+		}
+		if(url == null) {
+			throw new Exception("Database URL is not configured or is invalid");
+		}
+	}
+	
+	private void validateDriver() throws Exception {
+		if ((driver == null) || (driver.equals(""))) {
+			driver= props.getProperty("driver");
+		}
+		if(driver == null) {
+			throw new Exception("Database Driver is not configured or is invalid");
+		}
+	}
+	
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public void setProps(Properties props) {
+		this.props = props;
+	}
+}

@@ -1,0 +1,9 @@
+public class NotificationServiceImpl implements NotificationService {
+
+	private Notifier notifier;
+	
+	@Resource(name="myNotifier")
+	public void setNotifier(Notifier notifier) {
+		this.notifier = notifier;
+	}
+}

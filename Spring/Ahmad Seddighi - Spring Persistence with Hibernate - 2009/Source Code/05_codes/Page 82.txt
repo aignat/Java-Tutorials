@@ -1,0 +1,137 @@
+//Listing 5-1
+package com.packtpub.springhibernate.ch05;
+
+import java.util.Date;
+import java.util.Calendar;
+import java.io.Serializable;
+
+public class Student implements Serializable {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private String ssn;
+    private Date birthdate;
+    private String stdNo;
+    private Date entranceDate;
+
+    //zero-argument constructor
+    public Student() {
+    }
+
+    public Student(int id,
+                   String firstName,
+                   String lastName,
+                   String ssn,
+                   Date birthdate,
+                   String stdNo,
+                   Date entranceDate) {
+        setId(id);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setSsn(ssn);
+        setBirthdate(birthdate);
+        setStdNo(stdNo);
+        setEntranceDate(entranceDate);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
+
+    public String getStdNo() {
+        return stdNo;
+    }
+
+    public void setStdNo(String stdNo) {
+        this.stdNo = stdNo;
+    }
+
+    public Date getEntranceDate() {
+        return entranceDate;
+    }
+
+    public void setEntranceDate(Date entranceDate) {
+        this.entranceDate = entranceDate;
+    }
+
+    public int getAge() {
+        Calendar c = Calendar.getInstance();
+        c.setTime(new java.util.Date(getBirthdate().getTime()));
+        int birthYear = c.get(Calendar.YEAR);
+        c.setTime(new java.util.Date());
+        int now = c.get(Calendar.YEAR);
+        return now - birthYear;
+    }
+
+    public String toString() {
+        return id + ":" + firstName + ":" + lastName + ":" + ssn + ":[" + birthdate + "]:";
+    }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        final Student student = (Student) o;
+        if (id != student.id) return false;
+        if (birthdate != null ? !birthdate.equals(student.birthdate) :
+                student.birthdate != null) return false;
+        if (entranceDate != null ? !entranceDate.equals(student.entranceDate) :
+                student.entranceDate != null) return false;
+        if (firstName != null ? !firstName.equals(student.firstName) :
+                student.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(student.lastName) :
+                student.lastName != null) return false;
+        if (ssn != null ? !ssn.equals(student.ssn) :
+                student.ssn != null) return false;
+        if (stdNo != null ? !stdNo.equals(student.stdNo) :
+                student.stdNo != null) return false;
+        return true;
+    }
+
+    public int hashCode() {
+        int result;
+        result = id;
+        result = 29 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 29 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 29 * result + (ssn != null ? ssn.hashCode() : 0);
+        result = 29 * result + (birthdate != null ? birthdate.hashCode() : 0);
+        result = 29 * result + (stdNo != null ? stdNo.hashCode() : 0);
+        result = 29 * result + (entranceDate != null ? entranceDate.hashCode() : 0);
+        return result;
+    }
+}

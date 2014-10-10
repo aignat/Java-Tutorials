@@ -1,0 +1,23 @@
+//Listing 8-2
+package com.packtpub.springhibernate.ch08;
+
+import java.util.List;
+
+public class Student {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private Address address;
+    private List courses;
+
+    //default constructor
+    public Student() {
+    }
+
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+//setter and getter methods
+//equals() and hashCode()
+}

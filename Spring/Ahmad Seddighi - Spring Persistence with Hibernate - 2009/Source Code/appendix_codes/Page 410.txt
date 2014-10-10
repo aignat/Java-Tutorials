@@ -1,0 +1,25 @@
+//Listing A-1
+package com.packtpub.springhibernate.appendix;
+
+import org.hibernate.HibernateException;
+import org.hibernate.event.SaveOrUpdateEvent;
+import org.hibernate.event.SaveOrUpdateEventListener;
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+public class SaveNewCourseListener implements SaveOrUpdateEventListener {
+    static Logger logger = Logger.getLogger(SaveNewCourseListener.class);
+
+    public void onSaveOrUpdate(SaveOrUpdateEvent event) throws HibernateException {
+        if (event.getObject() instanceof Course) {
+            Course c = (Course) event.getObject();
+            logSaveOrUpdate(c);
+        }
+    }
+
+    private void logSaveOrUpdate(Course c) {
+// prepare the message
+        String message = c + " is added.";
+        logger.log(Level.INFO, message);
+    }
+}

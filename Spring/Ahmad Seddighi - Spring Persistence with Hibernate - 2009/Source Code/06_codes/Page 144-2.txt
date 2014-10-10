@@ -1,0 +1,3 @@
+@MapKey(name="ID")
+@OneToMany
+private Map students = new HashMap();

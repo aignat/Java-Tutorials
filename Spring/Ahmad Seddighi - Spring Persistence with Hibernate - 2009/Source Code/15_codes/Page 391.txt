@@ -1,0 +1,11 @@
+package com.packtpub.springhibernate.ch15;
+
+import java.util.Collection;
+
+public interface StudentDao {
+	public Collection getAllStudents();
+	public Student getStudent(Long studentId);
+	public Student saveStudent(Student student);
+	public Student removeStudent(Student student);
+	public Student updateStudent(Student student);
+}

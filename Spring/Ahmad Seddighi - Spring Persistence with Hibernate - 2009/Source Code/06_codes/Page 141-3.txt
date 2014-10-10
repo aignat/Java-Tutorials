@@ -1,0 +1,4 @@
+public class School {
+	@OneToMany(mappedBy = "school")
+	private Set students = new HashSet();
+}

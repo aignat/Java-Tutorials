@@ -1,0 +1,23 @@
+public class Student {
+	private int id;
+	private String firstName;
+	private Collection papers = new ArrayList();
+	//other fields and setter/gettter methods
+}
+
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Student" table="STUDENT">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="firstName" column="FIRST_NAME" type="string"/>
+		<idbag name="papers" table="STUDENT_PAPER">
+			<collection-id type="long" column="STUDENT_PAPER_ID">
+				<generator class="sequence"/>
+			</collection-id>
+			<key column="STUDENT_ID"/>
+			<element type="string" column="PAPER_PATH"/>
+		</idbag>
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

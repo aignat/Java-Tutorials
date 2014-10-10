@@ -1,0 +1,20 @@
+@Entity
+@Table(name = "STUDENT")
+public class Student {
+
+	@Embedded
+	private Phone phone;
+	//other fields and getter/setter methods
+	
+}
+
+@Embeddable
+public class Phone {
+
+	private String comment;
+	
+	@Column(name="PHONE_NUMBER")
+	private String number;
+
+	//other fields and getter/setter methods
+}

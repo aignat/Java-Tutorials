@@ -1,0 +1,8 @@
+//Listing 10-1
+package com.packtpub.springhibernate.ch10;
+
+public class EmailNotifier {
+    public void notify(String text) throws NotifyException {
+//sending text as an email to the administrator
+    }
+}

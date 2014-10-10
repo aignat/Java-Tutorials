@@ -1,0 +1,15 @@
+<hibernate-mapping>
+	<class name="Person" table="PERSON" discriminator-value="PE">
+		<id name="id" column="ID" type="long">
+			<generator class="native"/>
+		</id>	
+		<discriminator column="PERSON_TYPE" type="string"/>
+		<property name="birthdate" column="BIRTHDATE" type="date"/>
+		<list name="papers" table="STUDENT_PAPER">
+			<key column="STUDENT_ID"/>
+			<list-index column="POSITION"/>
+			<element column="PAPER_PATH" type="string"/>
+		</list>
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+<!-- Listing 10-21 -->
+    <bean id="configurationBean"
+          class="com.packtpub.springhibernate.ch10.ConfigurationBean">
+        <property name="intValue" value="10"/>
+        <property name="booleanValue" value="true"/>
+        <property name="stringArray" value="Spring,Hibernate,Ant,Log4j,HSQLDB"/>
+        <property name="clazz" value="java.util.Stack"/>
+        <property name="file" value="/images/sample.gif"/>
+        <property name="url" value="http://www.packtpub.com"/>
+        <property name="locale" value="en_US"/>
+        <property name="props">
+            <value>
+                username=administrator
+                password=123
+            </value>
+        </property>
+    </bean>
+</beans>

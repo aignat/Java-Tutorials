@@ -1,0 +1,20 @@
+//Listing 13-3
+package com.packtpub.springhibernate.ch13;
+
+import org.springframework.dao.DataAccessException;
+
+import java.util.Collection;
+
+public interface StudentDaoInf {
+    public Student getStudent(long id) throws DataAccessException;
+
+    public Collection getAllStudents() throws DataAccessException;
+
+    public Collection getGraduatedStudents() throws DataAccessException;
+
+    public Collection findStudents(String lastName) throws DataAccessException;
+
+    public void saveStudent(Student std) throws DataAccessException;
+
+    public void removeStudent(Student std) throws DataAccessException;
+}

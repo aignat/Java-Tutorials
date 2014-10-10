@@ -1,0 +1,5 @@
+package com.packtpub.springhibernate.ch10;
+
+public interface NotificationService {
+	public void notify(String message) throws ServiceException;
+}

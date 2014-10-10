@@ -1,0 +1,20 @@
+//Listing 10-3
+package com.packtpub.springhibernate.ch10;
+
+public class NotificationService {
+    EmailNotifier notifier = new EmailNotifier();
+    boolean retryOnFail = true;
+
+    public void notify(String message) throws ServiceException {
+        try {
+            notifier.notify(message);
+        } catch (NotifyException e) {
+            if (retryOnFail) {
+//notifying again
+                notify(message);
+            } else {
+                throw new ServiceException(e);
+            }
+        }
+    }
+}

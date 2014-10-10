@@ -1,0 +1,13 @@
+public class Student {
+	private int id;
+	private Address address;
+	//other fields and getter/setter methods
+}
+
+public class Address {
+	private int id;
+	private String street;
+	private String city;
+	private String zipCode;
+	//other fields and getter/setter methods
+}

@@ -1,0 +1,9 @@
+public class NotificationServiceImpl implements NotificationService{
+
+	private Notifier notifier;
+	
+	@Autowired(required=false)
+	public void setNotifier(Notifier notifier) {
+		this.notifier = notifier;
+	}
+}

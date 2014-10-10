@@ -1,0 +1,56 @@
+//Listing A-2
+package com.packtpub.springhibernate.appendix;
+
+import org.hibernate.CallbackException;
+import org.hibernate.Transaction;
+import org.hibernate.type.Type;
+import org.hibernate.EmptyInterceptor;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+
+import org.apache.log4j.Level;
+import org.apache.log4j.Logger;
+
+public class CourseSavingInterceptor extends EmptyInterceptor {
+    static Logger logger = Logger.getLogger(CourseSavingInterceptor.class);
+
+    public CourseSavingInterceptor() {
+    }
+
+    private ThreadLocal stored = new ThreadLocal();
+
+    public void afterTransactionBegin(Transaction tx) {
+        stored.set(new HashSet());
+    }
+
+    public void afterTransactionCompletion(Transaction tx) {
+        if (tx.wasCommitted()) {
+            Iterator i =
+                    ((Collection) stored.get()).iterator();
+            while (i.hasNext()) {
+                Course c = (Course) i.next();
+                logCompletion(c);
+            }
+        }
+        stored.set(null);
+    }
+
+    public boolean onSave(Object entity,
+                          Serializable id,
+                          Object[] state,
+                          String[] propertyNames,
+                          Type[] types)
+            throws CallbackException {
+        ((Collection) stored.get()).add(entity);
+        return false;
+    }
+
+    private void logCompletion(Course c) {
+// prepare the message
+        String message = c + " is added.";
+        logger.log(Level.INFO, message);
+    }
+}

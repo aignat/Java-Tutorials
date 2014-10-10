@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-mapping PUBLIC
+        "-//Hibernate/Hibernate Mapping DTD//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Listing 8-7 -->
+<hibernate-mapping>
+    <class name="com.packtpub.springhibernate.ch08.Student" table="STUDENT">
+        <id name="id" type="int" column="id">
+            <generator class="increment"/>
+        </id>
+        <property name="firstName" column="FIRST_NAME" type="string"/>
+        <property name="lastName" column="LAST_NAME" type="string"/>
+        <many-to-one name="address"
+                     class="com.packtpub.springhibernate.ch08.Address"
+                     column="ADDRESS_ID"
+                     cascade="save-update"/>
+        <bag name="courses" inverse="true" cascade="save-update">
+            <key column="STUDENT_ID"/>
+            <one-to-many class="com.packtpub.hibernate.Course"/>
+        </bag>
+    </class>
+</hibernate-mapping>

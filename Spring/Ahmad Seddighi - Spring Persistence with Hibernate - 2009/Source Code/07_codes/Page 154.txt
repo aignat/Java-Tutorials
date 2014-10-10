@@ -1,0 +1,26 @@
+//Listing 7-2
+package com.packtpub.springhibernate.ch07;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class History implements Serializable {
+    long initialCapacity;
+    Date establishmentDate;
+
+    public long getInitialCapacity() {
+        return initialCapacity;
+    }
+
+    public void setInitialCapacity(long initialCapacity) {
+        this.initialCapacity = initialCapacity;
+    }
+
+    public Date getEstablishmentDate() {
+        return establishmentDate;
+    }
+
+    public void setEstablishmentDate(Date establishmentDate) {
+        this.establishmentDate = establishmentDate;
+    }
+}

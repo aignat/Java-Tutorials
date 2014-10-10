@@ -1,0 +1,13 @@
+public class School {
+	private int id;
+	private String name;
+	private List students = new ArrayList();
+	//other fields and getter/setter methods
+}
+
+public class Student {
+	private int id;
+	private String firstName;
+	private String lastName;
+	//other fields and getter/setter methods
+}

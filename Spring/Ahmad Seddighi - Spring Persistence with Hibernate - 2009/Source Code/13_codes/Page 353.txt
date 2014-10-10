@@ -1,0 +1,92 @@
+package com.packtpub.springhibernate.ch13;
+
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.springframework.orm.hibernate3.SessionFactoryUtils;
+import java.util.Collection;
+
+public class HibernateStudentDao implements StudentDao {
+
+	SessionFactory sessionFactory;
+	
+	public Student getStudent(long id) {
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			return (Student) session.get(Student.class, new Long(id));
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public Collection getAllStudents(){
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			Query query = session.createQuery(
+				"from Student std order by std.lastName, std.firstName");
+			Collection allStudents = query.list();
+			return allStudents;
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public Collection getGraduatedStudents(){
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			Query query = session.createQuery("from Student std where std.status=1");
+			Collection graduatedStudents = query.list();
+			return graduatedStudents;
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public Collection findStudents(String lastName) {
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			Query query = session.createQuery(
+				"from Student std where std.lastName like ?");
+			query.setString(1, lastName + "%");
+			Collection students = query.list();
+			return students;
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public void saveStudent(Student std) {
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			session.save(std);
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public void removeStudent(Student std) {
+		Session session = SessionFactoryUtils.getSession(this.sessionFactory, true);
+		try {
+			session.delete(std);
+		} catch (HibernateException ex) {
+			throw SessionFactoryUtils.convertHibernateAccessException(ex);
+		} finally {
+			SessionFactoryUtils.closeSession(session);
+		}
+	}
+	
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+}

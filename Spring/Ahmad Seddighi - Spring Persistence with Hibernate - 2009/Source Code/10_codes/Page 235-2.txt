@@ -1,0 +1,8 @@
+//Listing 10-2
+package com.packtpub.springhibernate.ch10;
+
+public class SMSNotifier {
+    public void notify(String text) throws NotifyException {
+//sending text as a SMS
+    }
+}

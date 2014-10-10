@@ -1,0 +1,11 @@
+public class Student {
+	private int id;
+	private Phone phone;
+	//other fields and getter/setter methods
+}
+
+public class Phone {
+	private int id; private String comment;
+	private String number;
+	//other fields and getter/setter methods
+}

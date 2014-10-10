@@ -1,0 +1,22 @@
+public class Phone {
+	private int id; 
+	private String comment;
+	private String number;
+	private Student student;
+	//other fields and getter/setter methods
+}
+
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Phone" table="PHONE">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="number" column="PHONE_NUMBER" type="string"/>
+		<property name="comment" column="COMMENT" type="string"/>
+		<one-to-one name="student"
+			class="com.packtpub.springhibernate.ch06.Student"
+			constrained="false" property-ref="phone" />
+			
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

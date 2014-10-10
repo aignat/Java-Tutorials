@@ -1,0 +1,40 @@
+//Listing 11-8
+package com.packtpub.springhibernate.ch11;
+
+import java.util.List;
+
+import org.hibernate.HibernateException;
+
+public class StudentService implements StudentServiceInf {
+    StudentDao studentDao;
+    NotificationServiceInf notificationService;
+
+    public List getAllStudents() throws HibernateException {
+        return studentDao.getAllStudents();
+    }
+
+    public Student getStudent(Long stdId) throws HibernateException {
+        return studentDao.getStudent(stdId);
+    }
+
+    public Student saveStudent(Student std) throws HibernateException {
+        return studentDao.saveStudent(std);
+    }
+
+    public Student removeStudent(Student std) throws HibernateException {
+        return studentDao.removeStudent(std);
+    }
+
+    public Student updateStudent(Student std) throws HibernateException {
+        return studentDao.updateStudent(std);
+    }
+
+    //other student-related business methods
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
+    public void setNotificationService(NotificationServiceInf notificationService) {
+        this.notificationService = notificationService;
+    }
+}

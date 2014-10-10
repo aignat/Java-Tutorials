@@ -1,0 +1,65 @@
+package com.packtpub.springhibernate.ch15;
+
+import junit.framework.TestCase;
+import org.easymock.EasyMock;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Collection;
+
+public class TestCaseStudentService2 extends TestCase {
+
+	StudentService ss;
+	StudentDao dao;
+
+	public void setUp() throws Exception {
+		ApplicationContext ctx = new ClassPathXmlApplicationContext("com/packtpub/springhibernate/ch15/applicationContext.xml");
+		ss = (StudentService) ctx.getBean("studentService");
+		//create a mock object which represents
+		// the StudentDao instance
+		dao = EasyMock.createMock(StudentDao.class);
+	}
+	
+	public void testStudentDaoUsageEasyMock() throws Exception {
+		//create a dummy student
+		Student student = createADummyStudent();
+		Collection allStudents = new ArrayList();
+		allStudents.add(student);
+		//the DAO instance is expected to return allStudents
+		//when its getAllStudents() method is called
+		EasyMock.expect(dao.getAllStudents()).andReturn(allStudents);
+		//switch the mock object to the replay state
+		EasyMock.replay(dao);
+		ss.setStudentDao(dao);
+		//verify our expectations when the StudentService is called
+		Collection retStudents = ss.getAllStudents();
+		assertNotNull("The returned collection of Students" +
+			" are not null", retStudents);
+		assertEquals("The returned collection has the " +
+			"expected size", retStudents.size(), 1);
+		assertSame("The returned collection has the expected value",
+		retStudents.toArray()[0], student);
+		//verify if the dao instance is called
+		EasyMock.verify(dao);
+	}
+	
+	private Student createADummyStudent() {
+		Student student = new Student();
+		Calendar birthday = Calendar.getInstance();
+		birthday.set(Calendar.YEAR, 1982);
+		birthday.set(Calendar.MONTH, 3);
+		birthday.set(Calendar.DAY_OF_MONTH, 21);
+		student.setBirthdate(birthday.getTime());
+		Calendar entranceTime = Calendar.getInstance();
+		birthday.set(Calendar.YEAR, 2005);
+		birthday.set(Calendar.MONTH, 7);
+		birthday.set(Calendar.DAY_OF_MONTH, 1);
+		student.setEntranceDate(entranceTime.getTime());
+		student.setFirstName("John");
+		student.setLastName("White");
+		student.setSsn("121-21212-211");
+		student.setStdNo("832423472");
+		return student;
+	}
+}

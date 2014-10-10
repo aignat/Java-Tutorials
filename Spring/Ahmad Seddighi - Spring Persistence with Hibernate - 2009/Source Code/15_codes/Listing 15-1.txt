@@ -1,0 +1,16 @@
+//Listing 15-1
+package com.packtpub.springhibernate.ch15;
+
+import java.util.Collection;
+
+public interface StudentDao {
+    public Collection getAllStudents() throws DAOException;
+
+    public Student getStudent(Long studentId) throws DAOException;
+
+    public Student saveStudent(Student student) throws DAOException;
+
+    public Student removeStudent(Student student) throws DAOException;
+
+    public Student updateStudent(Student student) throws DAOException;
+}

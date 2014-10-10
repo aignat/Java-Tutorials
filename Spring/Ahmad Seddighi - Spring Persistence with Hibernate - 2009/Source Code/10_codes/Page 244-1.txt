@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+	<bean id="notificationService"
+		class="com.packtpub.springhibernate.ch10.NotificationServiceImpl">
+		<constructor-arg index="0">
+			<ref local="notifier"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>under-test</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>true</value>
+		</constructor-arg>
+	</bean>
+	<bean id="notifier"
+		class="com.packtpub.springhibernate.ch10.EmailNotifier">
+	</bean>
+</beans>

@@ -1,0 +1,6 @@
+public class Student {
+
+	@ManyToOne
+	@JoinColumn(name="ADDRESS_ID")
+	private Address address;
+}

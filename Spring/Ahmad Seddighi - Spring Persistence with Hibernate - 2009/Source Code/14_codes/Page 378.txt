@@ -1,0 +1,25 @@
+package com.packtpub.springhibernate.ch14;
+
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.AbstractController;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ViewStudentController extends AbstractController {
+
+	StudentService studentService;
+
+	public ModelAndView handleRequestInternal(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// create a model-and-view object
+		ModelAndView modelAndView = new ModelAndView("viewStudent");
+		String studentId = request.getParameter("studentId");
+		Student student = studentService.getStudent(studentId);
+		// add an object to render in the view
+		modelAndView.addObject("student", student);
+		return modelAndView;
+	}
+	
+	public void setStudentService(StudentService studentService) {
+		this.studentService = studentService;
+	}
+}

@@ -1,0 +1,9 @@
+@org.hibernate.annotations.CollectionOfElements(
+	targetElement = java.lang.String.class
+)
+@JoinTable(
+	name = "STUDENT_PAPER",
+	joinColumns = @JoinColumn(name = "STUDENT_ID")
+)
+@Column(name = "PAPER_PATH")
+	private Set papers = new TreeSet();

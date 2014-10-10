@@ -1,0 +1,14 @@
+//Listing 13-7
+package com.packtpub.springhibernate.ch13;
+
+public class DaoClient {
+    public static void main(String[] args) {
+        ApplicationContext ctx = new ClassPathXmlApplicationContext(
+                "com/packtpub/springhibernate/ch13/applicationContext.xml");
+        StudentDaoInf stdDao = (StudentDaoInf) ctx.getBean("studentDao");
+        Student std = new Student();
+//set std properties
+//save std
+        stdDao.saveStudent(std);
+    }
+}

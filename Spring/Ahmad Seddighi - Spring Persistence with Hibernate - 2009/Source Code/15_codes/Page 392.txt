@@ -1,0 +1,25 @@
+package com.packtpub.springhibernate.ch15;
+
+import junit.framework.TestCase;
+import org.hibernate.Session;
+
+public class TestCaseHibernateStudentDao extends TestCase {
+
+	Session session;
+	StudentDao dao;
+
+	public void setUp() throws Exception {
+		//a Hibernate Session and a HibernateStudentDao object are used
+		//by all the test methods, so those object creation are	performed here
+		session = HibernateHelper.getSession();
+		session.connection().setAutoCommit(true);
+		dao = new HibernateStudentDao();
+	}
+	
+	public void tearDown() throws Exception {
+		//as the finalized step we need to close the Hibernate Session
+		// instance to release the Session's resources
+		if(session.isOpen())
+			session.close();
+	}
+}

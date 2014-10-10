@@ -1,0 +1,12 @@
+<bean id="connection"
+	class="com.packtpub.springhibernate.ch10.ConnectionFactoryBean">
+		<property name="username" value="sa"/>
+		<property name="password" value=""/>
+		<property name="driver" value="org.hsqldb.jdbcDriver"/>
+		<property name="url" value="jdbc:hsqldb:hsql://localhost/hiberdb"/>
+		<property name="props">
+			<value>
+				defaultRowPrefetch=15
+			</value>
+		</property>
+</bean>

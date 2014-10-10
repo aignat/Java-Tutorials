@@ -1,0 +1,10 @@
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Phone" table="PHONE">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="number" column="PHONE_NUMBER" type="string"/>
+		<property name="comment" column="COMMENT" type="string"/>
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

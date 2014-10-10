@@ -1,0 +1,12 @@
+<hibernate-mapping>
+	<class name="com.packtpub.springhibernate.ch06.Address" table="ADDRESS">
+		<id name="id" type="int" column="ID">
+			<generator class="increment"/>
+		</id>
+		<property name="street" column="STREET" type="string"/>
+		<property name="city" column="CITY" type="string"/>
+		<property name="zipCode" column="ZIP_CODE" type="string"/>
+		
+		<!-- mapping of other fields -->
+	</class>
+</hibernate-mapping>

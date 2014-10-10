@@ -1,0 +1,8 @@
+//Listing 3-7
+package com.packtpub.springhibernate.ch03;
+
+public class SetterInfoLogPrinter {
+    public void print(String methodName, Object oldValue, Object newValue) {
+//insert the method information in the log file
+    }
+}

@@ -1,0 +1,7 @@
+# Filename: C:\hsqldb\server.properties
+# Hibernate examples database - create a database on the default port.
+# Specifies the path to the database files –
+# note that the trailing slash IS required.
+server.database.0=file:/hsqldb/hibernate/
+# Specifies the name of the database
+server.dbname.0=hiberdb

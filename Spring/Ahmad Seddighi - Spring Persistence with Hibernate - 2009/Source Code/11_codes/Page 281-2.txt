@@ -1,0 +1,66 @@
+//Listing 11-6
+package com.packtpub.springhibernate.ch11;
+
+import java.util.List;
+
+import org.springframework.dao.DataAccessException;
+
+public class StudentService implements StudentServiceInf {
+    StudentDao studentDao;
+    NotificationServiceInf notificationService;
+
+    public List getAllStudents() throws ServiceException {
+        try {
+            return studentDao.getAllStudents();
+        } catch (HibernateException e) {
+            notificationService.notify(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    public Student getStudent(Long stdId) throws ServiceException {
+        try {
+            return studentDao.getStudent(stdId);
+        } catch (HibernateException e) {
+            notificationService.notify(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    public Student saveStudent(Student std) throws ServiceException {
+        try {
+            return studentDao.saveStudent(std);
+        } catch (HibernateException e) {
+            notificationService.notify(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    public Student removeStudent(Student std) throws ServiceException {
+        try {
+            return studentDao.removeStudent(std);
+        } catch (HibernateException e) {
+            notificationService.notify(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+
+    public Student updateStudent(Student std) throws ServiceException {
+        try {
+            return studentDao.updateStudent(std);
+        } catch (HibernateException e) {
+            notificationService.notify(e.getMessage());
+            throw new ServiceException(e);
+        }
+    }
+//other student-related business methods
+
+    //setter methods for dependency injection
+    public void setStudentDao(StudentDao studentDao) {
+        this.studentDao = studentDao;
+    }
+
+    public void setNotificationService(NotificationServiceInf notificationService) {
+        this.notificationService = notificationService;
+    }
+}

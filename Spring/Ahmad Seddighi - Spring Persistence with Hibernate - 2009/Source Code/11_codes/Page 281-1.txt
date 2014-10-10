@@ -1,0 +1,16 @@
+//Listing 11-5
+package com.packtpub.springhibernate.ch11;
+
+import java.util.List;
+
+public interface StudentServiceInf {
+    public List getAllStudents() throws ServiceException;
+
+    public Student getStudent(Long stdId) throws ServiceException;
+
+    public Student saveStudent(Student std) throws ServiceException;
+
+    public Student removeStudent(Student std) throws ServiceException;
+
+    public Student updateStudent(Student std) throws ServiceException;
+}

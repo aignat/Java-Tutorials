@@ -1,0 +1,35 @@
+//Listing 3-8
+package com.packtpub.springhibernate.ch03;
+
+public class Student {
+    private int id;
+    private String firstName;
+    private String lastName;
+    private SetterInfoConsolePrinter printer = new SetterInfoConsolePrinter();
+
+    //zero-argument
+    public Student() {
+    }
+
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public void setId(int id) {
+        printer.print("setId", this.id, id);
+        this.id = id;
+    }
+
+    public void setFirstName(String firstName) {
+        printer.print("setFirstName", this.firstName, firstName);
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        printer.print("setLastName", this.lastName, lastName);
+        this.lastName = lastName;
+    }
+//getter methods
+//hashCode() and equals() methods
+}

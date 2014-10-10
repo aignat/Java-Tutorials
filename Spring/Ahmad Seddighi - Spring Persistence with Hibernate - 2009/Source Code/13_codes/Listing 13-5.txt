@@ -1,0 +1,45 @@
+//Listing 13-5
+package com.packtpub.springhibernate.ch13;
+
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.dao.DataAccessException;
+
+import java.util.Collection;
+
+public class StudentDaoImpl implements StudentDaoInf {
+    HibernateTemplate hibernateTemplate;
+
+    public Student getStudent(long id) throws DataAccessException {
+        return (Student) getHibernateTemplate().get(Student.class, new Long(id));
+    }
+
+    public Collection getAllStudents() throws DataAccessException {
+        return getHibernateTemplate().
+                find("from Student std order by std.lastName, std.firstName");
+    }
+
+    public Collection getGraduatedStudents() throws DataAccessException {
+        return getHibernateTemplate().find("from Student std where std.status=1");
+    }
+
+    public Collection findStudents(String lastName) throws DataAccessException {
+        return getHibernateTemplate().
+                find("from Student std where std.lastName like " + lastName + "%");
+    }
+
+    public void saveStudent(Student std) throws DataAccessException {
+        getHibernateTemplate().saveOrUpdate(std);
+    }
+
+    public void removeStudent(Student std) throws DataAccessException {
+        getHibernateTemplate().delete(std);
+    }
+
+    public HibernateTemplate getHibernateTemplate() {
+        return hibernateTemplate;
+    }
+
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
+        this.hibernateTemplate = hibernateTemplate;
+    }
+}

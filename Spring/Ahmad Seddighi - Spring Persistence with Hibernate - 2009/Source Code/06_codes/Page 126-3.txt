@@ -1,0 +1,4 @@
+@org.hibernate.annotations.Sort(
+	type = org.hibernate.annotations.SortType.COMPARATOR,
+	comparator=com.packtpub.springhibernate.ch06.CustomStringComparator
+)
